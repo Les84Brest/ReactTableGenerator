@@ -1,0 +1,20 @@
+.add-data-form {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+    max-width: 280px;
+    min-width: 280px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    font-family: $userfont;
+
+    &__input{
+        margin-bottom: 16px;
+    }
+    &__select {
+        margin-bottom: 20px;
+    }
+}

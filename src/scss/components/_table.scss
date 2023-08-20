@@ -1,0 +1,58 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+    &__caption {
+        display: none;
+    }
+
+    &__head {
+        background: $secondary;
+    }
+
+    &__head-cell {
+        padding: 9px 12px 7px 12px;
+        color: $white;
+        font-weight: 400;
+
+        &:first-child {
+            border-radius: 2px 0 0 0;
+        }
+
+        &:last-child {
+            border-radius: 0 2px 0 0;
+        }
+    }
+
+    &__body{
+        background-color: $white;
+    }
+
+    &__cell {
+        padding: 9px 12px 7px 12px;
+        border: $stdborder;
+        color: $textcolor;
+    }
+
+    &__buttons-wrap{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+    &__row--empty {
+        min-height: 32px;
+        height: 32px;
+     }
+}
+
+// .table { }
+// .table__caption { }
+// .table__head { }
+// .table__head-row { }
+// .table__head-cell { }
+// .table__body { }
+// 
+// .table__cell { }
+// .btn { }
+// .btn__edit { }
+// .btn__del { }

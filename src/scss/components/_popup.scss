@@ -1,0 +1,30 @@
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    overflow-y: auto;
+    transition: all 0.3s ease-in;
+    font-family: $userfont;
+
+    &--visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+   &__body {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+   }
+
+   &--open {
+    overflow: hidden;
+   }
+}
