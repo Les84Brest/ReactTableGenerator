@@ -18,6 +18,8 @@ export const Button = ({
     )
 }
 
+export default Button
+
 Button.propTypes = {
     children: PropTypes.node,
     onClick: PropTypes.func,

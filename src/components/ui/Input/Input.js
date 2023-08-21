@@ -16,7 +16,7 @@ return (
     />
 )
 }
-
+export default Input
 
 Input.propTypes = {
     id: PropTypes.string.isRequired,
@@ -27,3 +27,4 @@ Input.propTypes = {
 Input.defaultProps = {
     className: ''
 }
+

@@ -1,5 +1,9 @@
 import React, { useState, useCallback } from "react";
-import { Input, Select, Button } from '../ui'
+import Input from "../ui/Input/Input";
+import Select from "../ui/Select/Select";
+import Button from "../ui/Button/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { addLineToMainTable } from '../../redux/slices/tableSlice'
 
 const CITY_DATA = [
     {
@@ -22,6 +26,10 @@ const CITY_DATA = [
 
 const AddDataForm = () => {
 
+    const mainTableData = useSelector((state) => state.table.mainTableData)
+    console.log('%cmaintable', 'padding: 5px; background: #3dd; color: #333333;', mainTableData);
+    const dispatch = useDispatch()
+
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [age, setAge] = useState('')
@@ -37,6 +45,12 @@ const AddDataForm = () => {
     }, [])
 
     const handleChooseCity = useCallback((value) => { setCity(value) }, [])
+    const handleSubmit = () => {
+        const payload = { name, surname, age, city: city.name }
+
+        dispatch(addLineToMainTable(payload))
+        resetForm()
+    }
 
     return (<div className="add-data-form">
         <Input
@@ -77,7 +91,7 @@ const AddDataForm = () => {
         <Button
             className="btn-submit"
             disabled={disableSubmit}
-            onClick={resetForm}
+            onClick={handleSubmit}
         >Add</Button>
     </div>);
 
