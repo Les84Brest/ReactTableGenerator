@@ -17,10 +17,19 @@ export const tableSlice = createSlice({
 
             state.tables[tableId].push(tableRow)
         },
+
+        copyTable (state, action) {
+            const newId = Object.keys(state.tables).length
+            state.tables[newId] = action.payload
+        },
+
+        deleteTable(state, action) {
+            delete state.tables[action.payload]
+        }
     },
 })
 
 
-export const { addTableRow } = tableSlice.actions
+export const { addTableRow, copyTable, deleteTable } = tableSlice.actions
 
 export default tableSlice.reducer

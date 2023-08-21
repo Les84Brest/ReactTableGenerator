@@ -3,9 +3,14 @@ import PropTypes from "prop-types";
 import DataTableRow from "./DataTableRow";
 import Button from "../ui/Button/Button";
 import { MAIN_TABLE_ID } from "../../redux/config";
+import useTable from "./useTable";
+
 
 const DataTable = ({ tableId, tableData }) => {
     const VISIBLE_ROWS = 8;
+
+    const { copyTable, deleteTable } = useTable()
+
 
     const renderTableRows = () => {
         // return placeholders only in case when we don't have data
@@ -14,7 +19,7 @@ const DataTable = ({ tableId, tableData }) => {
         }
 
         const tableRows = tableData.map((row, i) => {
-            return <DataTableRow id={i} isEmpty={false} {...row} />
+            return <DataTableRow key={i} isEmpty={false} {...row} />
         })
 
         // add empty rows to show table as in Figma design
@@ -26,11 +31,16 @@ const DataTable = ({ tableId, tableData }) => {
     }
 
     const handleCopyTable = () => {
-        console.log('%ccopy table', 'padding: 5px; background: crimson; color: white;');
+        copyTable(tableData)
     }
 
     const handleDeleteTable = () => {
-        console.log('%cdelete table', 'padding: 5px; background: DarkKhaki; color: Yellow;');
+        if (tableId === MAIN_TABLE_ID) {
+            console.log('%cwe can\'t delete main table', 'padding: 5px; background: FloralWhite; color: red;');
+            return
+        }
+
+        deleteTable(tableId)
     }
 
     return (
