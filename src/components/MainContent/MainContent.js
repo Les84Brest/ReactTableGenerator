@@ -1,24 +1,32 @@
 import React from "react";
 import AddDataForm from "../AddDataForm/AddDataForm";
 import DataTable from "../DataTable/DataTable";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 export const MainContent = () => {
+ 
+    const tablesList = useSelector((state) => state.table.tables)
 
-    const mainTableData = useSelector((state) => state.table.mainTableData)
-    const clonedTables = []; //TODO get data from REdux
-
-    const renderClonedTables = () => {
-        if(!clonedTables.length) {
+    const renderTables = () => {
+        if (!Object.keys(tablesList).length) {
             return
         }
+
+        return Object.entries(tablesList).map(table => {
+            const [tableId, tableData] = table;
+
+            return <DataTable
+                tableId={tableId}
+                tableData={tableData}
+                key={tableId}
+            />
+        })
     }
 
     return (
         <main className="main">
             <AddDataForm />
-            <DataTable isMainTable={true} tableData={mainTableData}/>
-            {renderClonedTables()}
+            {renderTables()}
         </main>
     );
 }

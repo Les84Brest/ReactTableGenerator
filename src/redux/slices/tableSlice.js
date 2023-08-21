@@ -1,23 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { MAIN_TABLE_ID } from '../config';
+
 
 const initialState = {
-    mainTableData: [],
-    clonedTables: {},
+    tables: {
+        [MAIN_TABLE_ID]: []
+    }
 }
 
 export const tableSlice = createSlice({
     name: 'tables',
     initialState,
     reducers: {
-        addLineToMainTable: (state, action) => {
-            const { payload } = action;
+        addTableRow (state, action) {
+            const { tableId, tableRow } = action.payload;
 
-            state.mainTableData.push(payload);
-        }
+            state.tables[tableId].push(tableRow)
+        },
     },
 })
 
 
-export const { addLineToMainTable } = tableSlice.actions
+export const { addTableRow } = tableSlice.actions
 
 export default tableSlice.reducer

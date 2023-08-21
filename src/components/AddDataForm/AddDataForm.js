@@ -2,8 +2,9 @@ import React, { useState, useCallback } from "react";
 import Input from "../ui/Input/Input";
 import Select from "../ui/Select/Select";
 import Button from "../ui/Button/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { addLineToMainTable } from '../../redux/slices/tableSlice'
+import { useDispatch } from "react-redux";
+import { addTableRow } from '../../redux/slices/tableSlice'
+import { MAIN_TABLE_ID } from '../../redux/config';
 
 const CITY_DATA = [
     {
@@ -43,9 +44,8 @@ const AddDataForm = () => {
 
     const handleChooseCity = useCallback((value) => { setCity(value) }, [])
     const handleSubmit = () => {
-        const payload = { workerName: name, surname, age, city: city.name }
-
-        dispatch(addLineToMainTable(payload))
+        const tableRow = { workerName: name, surname, age, city: city.name }
+        dispatch(addTableRow({tableId: MAIN_TABLE_ID, tableRow}))
         resetForm()
     }
 

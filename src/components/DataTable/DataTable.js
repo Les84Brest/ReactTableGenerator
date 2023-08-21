@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import DataTableRow from "./DataTableRow";
 import Button from "../ui/Button/Button";
+import { MAIN_TABLE_ID } from "../../redux/config";
 
-const DataTable = ({ isMainTable, tableData }) => {
+const DataTable = ({ tableId, tableData }) => {
     const VISIBLE_ROWS = 8;
 
     const renderTableRows = () => {
@@ -41,7 +42,7 @@ const DataTable = ({ isMainTable, tableData }) => {
 
             <div className="data-table__table">
                 <table className="table">
-                    <caption className="table__caption">{isMainTable ? 'Main table' : 'Cloned table'}</caption>
+                    <caption className="table__caption">{tableId === MAIN_TABLE_ID ? 'Main table' : `Cloned table ${tableId}`}</caption>
                     <thead className="table__head">
                         <tr className="table__head-row">
                             <th className="table__head-cell" scope="col">Name</th>
@@ -63,7 +64,7 @@ export default DataTable;
 
 
 DataTable.propTypes = {
-    isMainTable: PropTypes.bool,
+    tableId: PropTypes.string,
     tableData: PropTypes.arrayOf(
         PropTypes.shape({
             workerName: PropTypes.string,
@@ -72,8 +73,4 @@ DataTable.propTypes = {
             city: PropTypes.string,
         })
     ),
-}
-
-DataTable.defaultProps = {
-    isMainTable: false
 }
