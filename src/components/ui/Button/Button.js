@@ -28,7 +28,6 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-    children: 'Default button',
     disabled: false,
     onClick: () => { },
     className: '',

@@ -1,26 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { MAIN_TABLE_ID } from '../config';
+
 
 const initialState = {
-    mainTableData: [],
-    clonedTables: {},
+    tables: {
+        [MAIN_TABLE_ID]: []
+    }
 }
-// Redux Toolkit allows us to write "mutating" logic in reducers. It
-// doesn't actually mutate the state because it uses the Immer library,
-// which detects changes to a "draft state" and produces a brand new
-// immutable state based off those changes
+
 export const tableSlice = createSlice({
     name: 'tables',
     initialState,
     reducers: {
-        addLineToMainTable: (state, action) => {
-            const { payload } = action;
+        addTableRow (state, action) {
+            const { tableId, tableRow } = action.payload;
 
-            state.mainTableData.push(payload);
+            state.tables[tableId].push(tableRow)
+        },
+
+        copyTable (state, action) {
+            const newId = Object.keys(state.tables).length
+            state.tables[newId] = action.payload
+        },
+
+        deleteTable(state, action) {
+            delete state.tables[action.payload]
         }
     },
 })
 
 
-export const { addLineToMainTable } = tableSlice.actions
+export const { addTableRow, copyTable, deleteTable } = tableSlice.actions
 
 export default tableSlice.reducer
