@@ -1,0 +1,58 @@
+.btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: $userfont;
+}
+
+.btn-submit {
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    color: $white;
+    border-radius: 4px;
+    background-color: $accent;
+    font-weight: 700;
+    transition: color 0.3s ease-in;
+
+    &:disabled {
+        background-color: $btndisabled;
+        cursor: not-allowed;
+    }
+}
+
+.btn-copy {
+    color: $white;
+    background: $accent;
+    padding-top: 4px;
+    padding: 4px;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 2px;
+    text-align: center;
+    margin-right: 22px;
+}
+
+.btn-close {
+    width: 20px;
+    height: 20px;
+    background: url(../../accets/img/cross.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+.btn__edit,
+.btn__del {
+     text-decoration: underline;
+ }
+
+.btn__edit {
+    color: $accent1;
+ }
+
+.btn__del {
+    color: $darkred;
+}

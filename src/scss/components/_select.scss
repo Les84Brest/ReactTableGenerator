@@ -1,0 +1,82 @@
+.select {
+    width: 100%;
+    position: relative;
+
+    &__header {
+        display: flex;
+        padding: 14px;
+        border-radius: 4px;
+        border: 1px solid $border;
+        width: 100%;
+        cursor: pointer;
+        font-family: $userfont;
+    }
+
+    &__icon {
+        width: 14px;
+        height: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex-shrink: 0;
+        margin-left: auto;
+        background: url(../../accets/img/arrow-up.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        transition: transform 0.3s ease-in-out;
+        transform-origin: center center;
+    }
+
+    &.is-active &__icon {
+        transform: rotate(180deg);
+    }
+
+    &__current {
+        font-size: $fontsize;
+        font-family: $userfont;
+        color: $textcolor;
+    }
+
+    &.selected &__current {
+        color: $black;
+    }
+
+    &.is-active &__options {
+        display: block;
+    }
+
+    &__options {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(100% + 4px);
+        list-style-type: none;
+        background: $white;
+        border-radius: 4px;
+        border: $stdborder;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
+        padding: 0 14px;
+    }
+
+    &__option-item {
+        font-family: $userfont;
+        color: $placeholder;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        border-bottom: $stdborder;
+        line-height: 16px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            color: $darkestgray;
+            font-style: normal;
+            font-weight: 700;
+        }
+    }
+}

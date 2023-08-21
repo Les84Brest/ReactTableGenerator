@@ -1,0 +1,17 @@
+.data-table {
+    width: 555px;
+    max-width: 596px;
+    margin-bottom: 48px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__service {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 12px;
+    }
+}

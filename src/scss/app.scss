@@ -1,0 +1,15 @@
+@import './variables';
+@import './mixins';
+@import './libs/normalize';
+
+@import './components/all';
+
+@include font('Roboto', normal, 400, '../accets/fonts/Roboto/roboto-regular.woff2');
+@include font('Roboto', normal, 700, '../accets/fonts/Roboto/roboto-bold.woff2');
+
+body {
+    font-family: $userfont;
+    font-size: $fontsize;
+    line-height: $lineheight;
+    color: $textcolor ;
+}

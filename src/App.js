@@ -1,4 +1,7 @@
-import MainContent from './components/MainContent';
+import React from 'react';
+import MainContent from './components/MainContent/';
+
+import './scss/app.scss'
 
 function App() {
   return (

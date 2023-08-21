@@ -1,25 +1,98 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
+import Input from "../ui/Input/Input";
+import Select from "../ui/Select/Select";
+import Button from "../ui/Button/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { addLineToMainTable } from '../../redux/slices/tableSlice'
+
+const CITY_DATA = [
+    {
+        id: 1,
+        name: 'Riga'
+    },
+    {
+        id: 2,
+        name: 'Daugavpils'
+    },
+    {
+        id: 3,
+        name: 'Jūrmala'
+    },
+    {
+        id: 4,
+        name: 'Ventspils'
+    },
+]
 
 const AddDataForm = () => {
 
-    return (<div className="add-data-form">
-        <input className="form-input add-data-form__input" type="text" placeholder="Name"></input>
-        <input className="form-input add-data-form__input" type="text" placeholder="Surname"></input>
-        <input className="form-input add-data-form__input" type="number" placeholder="Age"></input>
+    const mainTableData = useSelector((state) => state.table.mainTableData)
+    console.log('%cmaintable', 'padding: 5px; background: #3dd; color: #333333;', mainTableData);
+    const dispatch = useDispatch()
 
-        <div className="select add-data-form__select">
-            <div className="select__header">
-                <span className="select__current">City</span>
-                <div className="select__icon"></div>
-            </div>
-            <ul className="select__options">
-                <li className="select__option-item">Riga</li>
-                <li className="select__option-item">Daugavpils</li>
-                <li className="select__option-item">Jūrmala</li>
-                <li className="select__option-item">Ventspils</li>
-            </ul>
-        </div>
-        <button className="btn btn-submit" disabled >add</button>
+    const [name, setName] = useState('')
+    const [surname, setSurname] = useState('')
+    const [age, setAge] = useState('')
+    const [city, setCity] = useState(null)
+
+    const disableSubmit = (name && surname && age && city) ? false : true
+
+    const resetForm = useCallback(() => {
+        setName('')
+        setSurname('')
+        setAge('')
+        setCity(null)
+    }, [])
+
+    const handleChooseCity = useCallback((value) => { setCity(value) }, [])
+    const handleSubmit = () => {
+        const payload = { name, surname, age, city: city.name }
+
+        dispatch(addLineToMainTable(payload))
+        resetForm()
+    }
+
+    return (<div className="add-data-form">
+        <Input
+            id='name'
+            className="form-input add-data-form__input"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+        />
+
+        <Input
+            id='surname'
+            className="form-input add-data-form__input"
+            type="text"
+            placeholder="Surname"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+        />
+
+        <Input
+            id='age'
+            className="form-input add-data-form__input"
+            type="number"
+            placeholder="Age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+        />
+
+        <Select
+            itemsList={CITY_DATA}
+            currentLabel='City'
+            onChoose={handleChooseCity}
+            value={city}
+            className='add-data-form__select'
+        />
+
+        <Button
+            className="btn-submit"
+            disabled={disableSubmit}
+            onClick={handleSubmit}
+        >Add</Button>
     </div>);
 
 }
