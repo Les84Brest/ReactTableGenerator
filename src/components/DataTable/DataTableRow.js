@@ -2,13 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from '../ui/Button/Button';
 
-export const DataTableRow = ({ isEmpty, id, workerName, surname, age, city }) => {
+export const DataTableRow = (props) => {
+    const { isEmpty,
+        onPressDelete,
+        onPressEdit,
+        id,
+        workerName,
+        surname,
+        age,
+        city } = props
+
     const handleEdit = () => {
-        console.log('%cedit', 'padding: 5px; background: DarkKhaki; color: Yellow;');
+        onPressEdit(id)
     }
 
     const handleDelete = () => {
-        console.log('%cdelete', 'padding: 5px; background: crimson; color: white;');
+        onPressDelete(id)
     }
 
     return (
@@ -45,6 +54,8 @@ DataTableRow.propTypes = {
     surname: PropTypes.string,
     age: PropTypes.string,
     city: PropTypes.string,
+    onPressDelete: PropTypes.func,
+    onPressEdit: PropTypes.func
 }
 
 DataTableRow.defaultProps = {
@@ -53,4 +64,6 @@ DataTableRow.defaultProps = {
     surname: '',
     age: '',
     city: '',
+    onPressDelete: () => { },
+    onPressEdit: () => { },
 }
