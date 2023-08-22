@@ -1,10 +1,9 @@
-import React, { useState, useCallback } from "react";
-import Input from "../ui/Input/Input";
-import Select from "../ui/Select/Select";
-import Button from "../ui/Button/Button";
-import { useDispatch } from "react-redux";
-import { addTableRow } from '../../redux/slices/tableSlice'
-import { MAIN_TABLE_ID } from '../../redux/config';
+import React, { useState, useCallback, useEffect } from "react"
+import PropTypes from "prop-types"
+import Input from "../ui/Input/Input"
+import Select from "../ui/Select/Select"
+import Button from "../ui/Button/Button"
+import useManageData, { MODE_EDIT } from "./useManageData"
 
 const CITY_DATA = [
     {
@@ -25,13 +24,33 @@ const CITY_DATA = [
     },
 ]
 
-const AddDataForm = () => {
-    const dispatch = useDispatch()
+const AddDataForm = ({ mode, submitButtonLabel }) => {
+    const { saveData, getEditRowData } = useManageData(mode);
+
+    const editData = getEditRowData()
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [age, setAge] = useState('')
     const [city, setCity] = useState(null)
+
+    useEffect(() => {
+        if(!editData){
+            return
+        }
+
+        if(mode === MODE_EDIT) {
+            const {workerName, surname, age, city  } = editData;
+
+            setName(workerName)
+            setSurname(surname)
+            setAge(age)
+
+            const [cityItem] = CITY_DATA.filter(item => item.name === city)
+            setCity(cityItem)
+        }
+
+    }, [editData])
 
     const disableSubmit = (name && surname && age && city) ? false : true
 
@@ -44,8 +63,8 @@ const AddDataForm = () => {
 
     const handleChooseCity = useCallback((value) => { setCity(value) }, [])
     const handleSubmit = () => {
-        const tableRow = { workerName: name, surname, age, city: city.name }
-        dispatch(addTableRow({tableId: MAIN_TABLE_ID, tableRow}))
+        const data = { workerName: name, surname, age, city: city.name }
+        saveData(data)
         resetForm()
     }
 
@@ -89,8 +108,15 @@ const AddDataForm = () => {
             className="btn-submit"
             disabled={disableSubmit}
             onClick={handleSubmit}
-        >Add</Button>
+        >
+            {submitButtonLabel}
+        </Button>
     </div>);
-
 }
 export default AddDataForm;
+
+
+AddDataForm.propTypes = {
+    mode: PropTypes.string,
+    submitButtonLabel: PropTypes.string,
+}

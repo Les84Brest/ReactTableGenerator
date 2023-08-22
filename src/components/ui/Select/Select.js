@@ -4,7 +4,6 @@ import ClickOutside from "../ClickOutside/ClickOutside"
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-
 export const Select = ({
     currentLabel, itemsList, onChoose, className, value, ...attrs
 }) => {
@@ -21,24 +20,12 @@ export const Select = ({
         if (value) {
             setCurrentName(value.name)
             setIsOpen(false)
-            // onChoose(selectedOption)
             return
         }
 
         setCurrentName(currentLabel)
     }, [value])
 
-    const handleKeyDown = (e) => {
-        console.log('%ce.key', 'padding: 5px; background: DarkKhaki; color: Yellow;', e.key);
-        if (e.key === 'Enter') {
-            return
-        }
-        if (e.key === 'Escape') {
-
-            console.log('%cescape pressed', 'padding: 5px; background: DarkGreen; color: MediumSpringGreen;');
-            return
-        }
-    }
 
 
     return (

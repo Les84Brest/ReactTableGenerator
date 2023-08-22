@@ -1,16 +1,23 @@
-import React from "react";
-import PropTypes from "prop-types";
-import DataTableRow from "./DataTableRow";
-import Button from "../ui/Button/Button";
-import { MAIN_TABLE_ID } from "../../redux/config";
-import useTable from "./useTable";
+import React, { useCallback } from "react"
+import PropTypes from "prop-types"
+import DataTableRow from "./DataTableRow"
+import Button from "../ui/Button/Button"
+import { MAIN_TABLE_ID } from "../../redux/config"
+import useTable from "./useTable"
 
 
 const DataTable = ({ tableId, tableData }) => {
     const VISIBLE_ROWS = 8;
 
-    const { copyTable, deleteTable } = useTable()
+    const { copyTable, deleteTable, deleteRow, startEditRow } = useTable()
 
+    const cbDeleteRow = useCallback((rowId) => {
+        deleteRow(tableId, rowId)
+    }, [tableId, deleteRow])
+
+    const cbUpdateRow = useCallback((rowId) => {
+        startEditRow(tableId, rowId)
+    }, [tableId, startEditRow])
 
     const renderTableRows = () => {
         // return placeholders only in case when we don't have data
@@ -18,8 +25,13 @@ const DataTable = ({ tableId, tableData }) => {
             return Array(VISIBLE_ROWS).fill('').map((_, i) => <DataTableRow key={i} isEmpty />);
         }
 
-        const tableRows = tableData.map((row, i) => {
-            return <DataTableRow key={i} isEmpty={false} {...row} />
+        const tableRows = tableData.map((row) => {
+            return <DataTableRow
+                key={`${row.id}item`}
+                isEmpty={false}
+                onPressDelete={cbDeleteRow}
+                onPressEdit={cbUpdateRow}
+                {...row} />
         })
 
         // add empty rows to show table as in Figma design
@@ -36,7 +48,6 @@ const DataTable = ({ tableId, tableData }) => {
 
     const handleDeleteTable = () => {
         if (tableId === MAIN_TABLE_ID) {
-            console.log('%cwe can\'t delete main table', 'padding: 5px; background: FloralWhite; color: red;');
             return
         }
 
