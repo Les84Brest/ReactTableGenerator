@@ -33,17 +33,39 @@ const AddDataForm = ({ mode, submitButtonLabel, className }) => {
     const editData = getEditRowData()
 
     const [name, setName] = useState('')
+    const [isNameValid, setIsNameValid] = useState(false)
     const [surname, setSurname] = useState('')
+    const [isSurnameValid, setIsSurnameValid] = useState(false)
     const [age, setAge] = useState('')
+    const [isAgeValid, setIsAgeValid] = useState(false)
     const [city, setCity] = useState(null)
+    const [resetInput, setResetInput] = useState(false);
+
+    const [isDataValid, setIsDataValid] = useState(false)
+
+    // validation callbacks
+    const cbSetNameValidStatus = useCallback((isValid) => setIsNameValid(isValid), [])
+    const cbSetSurnameValidStatus = useCallback((isValid) => setIsSurnameValid(isValid), [])
+    const cbSetAgeValidStatus = useCallback((isValid) => setIsAgeValid(isValid), [])
+
+    //reset input validation state
+    useEffect (() => {
+        resetInput && setResetInput(false)
+    }, [name, surname, age, city])
 
     useEffect(() => {
-        if(!editData){
+        (isNameValid && isSurnameValid && isAgeValid && city)
+            ? setIsDataValid(true)
+            : setIsDataValid(false)
+    }, [city, isNameValid, isSurnameValid, isAgeValid])
+
+    useEffect(() => {
+        if (!editData) {
             return
         }
 
-        if(mode === MODE_EDIT) {
-            const {workerName, surname, age, city  } = editData;
+        if (mode === MODE_EDIT) {
+            const { workerName, surname, age, city } = editData;
 
             setName(workerName)
             setSurname(surname)
@@ -55,14 +77,13 @@ const AddDataForm = ({ mode, submitButtonLabel, className }) => {
 
     }, [editData])
 
-    const disableSubmit = (name && surname && age && city) ? false : true
-
-    const resetForm = useCallback(() => {
+    const resetForm = () => {
         setName('')
         setSurname('')
         setAge('')
         setCity(null)
-    }, [])
+        setResetInput(true)
+    }
 
     const handleChooseCity = useCallback((value) => { setCity(value) }, [])
     const handleSubmit = () => {
@@ -74,29 +95,38 @@ const AddDataForm = ({ mode, submitButtonLabel, className }) => {
     return (<div className={classes}>
         <Input
             id='name'
-            className="form-input add-data-form__input"
+            className="add-data-form__input"
             type="text"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            validations={{ minWidth: 4, isEmpty: true }}
+            validationStatus={cbSetNameValidStatus}
+            resetInput={resetInput}
         />
 
         <Input
             id='surname'
-            className="form-input add-data-form__input"
+            className="add-data-form__input"
             type="text"
             placeholder="Surname"
             value={surname}
             onChange={(e) => setSurname(e.target.value)}
+            validations={{ minWidth: 4, isEmpty: true }}
+            validationStatus={cbSetSurnameValidStatus}
+            resetInput={resetInput}
         />
 
         <Input
             id='age'
-            className="form-input add-data-form__input"
+            className="add-data-form__input"
             type="number"
             placeholder="Age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
+            validations={{ isEmpty: true, minValue: 18, maxValue: 60 }}
+            validationStatus={cbSetAgeValidStatus}
+            resetInput={resetInput}
         />
 
         <Select
@@ -109,7 +139,7 @@ const AddDataForm = ({ mode, submitButtonLabel, className }) => {
 
         <Button
             className="btn-submit"
-            disabled={disableSubmit}
+            disabled={!isDataValid}
             onClick={handleSubmit}
         >
             {submitButtonLabel}

@@ -6,6 +6,19 @@
     color: $black;
     font-family: $userfont;
 
+    &__wrap {
+        position: relative;
+        width: 100%;
+    }
+
+    &__validation {
+        color: $error;
+        font-size: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
     // adjust placeholder behavior
     &[placeholder] {
         text-overflow: ellipsis;
