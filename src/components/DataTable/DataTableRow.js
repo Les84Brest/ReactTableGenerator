@@ -24,12 +24,12 @@ export const DataTableRow = (props) => {
     }
 
     return (
-        <tr className={rowClass}>
-            <td data-cell="Name" className="table__cell table__cell--name">{workerName}</td>
-            <td data-cell="Surname" className="table__cell table__cell--surname">{surname}</td>
-            <td data-cell="Age" className="table__cell table__cell--name">{age}</td>
-            <td data-cell="City" className="table__cell table__cell--city">{city}</td>
-            <td className="table__cell table__cell--buttons">
+        <tr className={rowClass} role="row">
+            <td role="cell" data-cell="Name" className="table__cell table__cell--name">{workerName}</td>
+            <td role="cell" data-cell="Surname" className="table__cell table__cell--surname">{surname}</td>
+            <td role="cell" data-cell="Age" className="table__cell table__cell--name">{age}</td>
+            <td role="cell" data-cell="City" className="table__cell table__cell--city">{city}</td>
+            <td role="cell" className="table__cell table__cell--buttons">
                 {
                     !isEmpty && (<div className="table__buttons-wrap">
 

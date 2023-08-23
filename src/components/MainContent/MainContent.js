@@ -35,7 +35,7 @@ export const MainContent = () => {
 
     return (
         <main className="main">
-            <AddDataForm mode={MODE_ADD} submitButtonLabel="Add" />
+            <AddDataForm mode={MODE_ADD} submitButtonLabel="Add" className="main__add-data-form"/>
             {renderTables()}
             <Modal isActive={isOpen} modalClose={closeModal}>
                 <AddDataForm mode={MODE_EDIT} submitButtonLabel="Agree" />
