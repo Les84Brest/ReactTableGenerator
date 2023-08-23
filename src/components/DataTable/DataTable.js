@@ -85,7 +85,7 @@ const DataTable = ({ tableId, tableData }) => {
             </div>
             {tableId === MAIN_TABLE_ID &&
                 <Modal isActive={isTableModalOpen} modalClose={() => {setIsTableModalOpen(false)}}>
-                    <div class="table__modal">The master table cannot be deleted</div>
+                    <div class="table__modal">The main table cannot be deleted</div>
                 </Modal>}
         </>
     );
