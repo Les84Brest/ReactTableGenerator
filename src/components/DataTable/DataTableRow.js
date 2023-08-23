@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from '../ui/Button/Button';
+import cn from 'classnames'
 
 export const DataTableRow = (props) => {
     const { isEmpty,
@@ -12,6 +13,8 @@ export const DataTableRow = (props) => {
         age,
         city } = props
 
+    const rowClass = cn('table__row', {'table__row--empty': isEmpty}) 
+
     const handleEdit = () => {
         onPressEdit(id)
     }
@@ -21,12 +24,12 @@ export const DataTableRow = (props) => {
     }
 
     return (
-        <tr className="table__row">
-            <td className="table__cell">{workerName}</td>
-            <td className="table__cell">{surname}</td>
-            <td className="table__cell">{age}</td>
-            <td className="table__cell">{city}</td>
-            <td className="table__cell">
+        <tr className={rowClass} role="row">
+            <td role="cell" data-cell="Name" className="table__cell table__cell--name">{workerName}</td>
+            <td role="cell" data-cell="Surname" className="table__cell table__cell--surname">{surname}</td>
+            <td role="cell" data-cell="Age" className="table__cell table__cell--name">{age}</td>
+            <td role="cell" data-cell="City" className="table__cell table__cell--city">{city}</td>
+            <td role="cell" className="table__cell table__cell--buttons">
                 {
                     !isEmpty && (<div className="table__buttons-wrap">
 

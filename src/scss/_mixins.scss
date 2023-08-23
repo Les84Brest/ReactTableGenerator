@@ -6,3 +6,9 @@
         src: url($furl) format('woff2');
     }
 }
+
+// breackpoints
+
+@mixin mobile {
+    @media (max-width: 600px) { @content }
+}

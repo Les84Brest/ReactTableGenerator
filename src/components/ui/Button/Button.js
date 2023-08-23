@@ -13,6 +13,7 @@ export const Button = ({
             className={classes}
             disabled={disabled}
             onClick={onClick}
+            type="button"
             {...attrs}
         >{children}</button>
     )
