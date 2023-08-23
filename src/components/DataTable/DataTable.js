@@ -34,11 +34,6 @@ const DataTable = ({ tableId, tableData }) => {
                 {...row} />
         })
 
-        // add empty rows to show table as in Figma design
-        while (tableRows.length < VISIBLE_ROWS) {
-            tableRows.push(<DataTableRow key={tableRows.length + 1} isEmpty />)
-        }
-
         return tableRows
     }
 
@@ -62,18 +57,23 @@ const DataTable = ({ tableId, tableData }) => {
             </div>
 
             <div className="data-table__table">
-                <table className="table">
-                    <caption className="table__caption">{tableId === MAIN_TABLE_ID ? 'Main table' : `Cloned table ${tableId}`}</caption>
-                    <thead className="table__head">
-                        <tr className="table__head-row">
-                            <th className="table__head-cell" scope="col">Name</th>
-                            <th className="table__head-cell" scope="col">Surname</th>
-                            <th className="table__head-cell" scope="col">Age</th>
-                            <th className="table__head-cell" scope="col">City</th>
-                            <th className="table__head-cell"></th>
+                <table className="table" role='table'>
+                    <caption className="table__caption" role="caption">{tableId === MAIN_TABLE_ID ? 'Main table' : `Cloned table ${tableId}`}</caption>
+                    <thead className="table__head" >
+                        <tr className="table__head-row" role="row">
+                            <th className="table__head-cell" scope="col" role="columnheader">Name</th>
+                            <th className="table__head-cell" scope="col" role="columnheader">Surname</th>
+                            <th className="table__head-cell" scope="col" role="columnheader">Age</th>
+                            <th className="table__head-cell" scope="col" role="columnheader">City</th>
+                            <th className="table__head-cell" role="columnheader"></th>
                         </tr>
                     </thead>
                     <tbody className="table__body">
+                        {!tableData.length && <tr className="table__row table__row--empty-mobile" role="row">
+                            <td role="cell" className="table__cell">
+                                There are no records in this table
+                            </td>
+                        </tr>}
                         {renderTableRows()}
                     </tbody>
                 </table>

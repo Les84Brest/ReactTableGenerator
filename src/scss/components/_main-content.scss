@@ -6,7 +6,15 @@
     font-size: $fontsize;
     font-family: $userfont;
 
+    @include mobile {
+        padding: 20px;
+    }
+
     &__add-data {
         margin-bottom: 48px;
+    }
+
+    &__add-data-form {
+        margin-bottom: 50px;
     }
 }

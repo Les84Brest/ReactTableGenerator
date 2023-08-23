@@ -4,6 +4,7 @@ import Input from "../ui/Input/Input"
 import Select from "../ui/Select/Select"
 import Button from "../ui/Button/Button"
 import useManageData, { MODE_EDIT } from "./useManageData"
+import cn from 'classnames'
 
 const CITY_DATA = [
     {
@@ -24,8 +25,10 @@ const CITY_DATA = [
     },
 ]
 
-const AddDataForm = ({ mode, submitButtonLabel }) => {
+const AddDataForm = ({ mode, submitButtonLabel, className }) => {
     const { saveData, getEditRowData } = useManageData(mode);
+
+    const classes = cn('add-data-form', className)
 
     const editData = getEditRowData()
 
@@ -68,7 +71,7 @@ const AddDataForm = ({ mode, submitButtonLabel }) => {
         resetForm()
     }
 
-    return (<div className="add-data-form">
+    return (<div className={classes}>
         <Input
             id='name'
             className="form-input add-data-form__input"
@@ -119,4 +122,5 @@ export default AddDataForm;
 AddDataForm.propTypes = {
     mode: PropTypes.string,
     submitButtonLabel: PropTypes.string,
+    className: PropTypes.string
 }
