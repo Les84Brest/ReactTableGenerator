@@ -1,11 +1,11 @@
-import React from "react";
-import AddDataForm from "../AddDataForm/AddDataForm";
-import DataTable from "../DataTable/DataTable";
-import { useSelector } from "react-redux";
-import useModal from "../ui/Modal/useModal";
-import { MAIN_TABLE_ID } from "../../redux/config";
-import Modal from "../ui/Modal/Modal";
-import { MODE_EDIT, MODE_ADD } from "../AddDataForm/useManageData";
+import React from "react"
+import AddDataForm from "../AddDataForm/AddDataForm"
+import DataTable from "../DataTable/DataTable"
+import { useSelector } from "react-redux"
+import useModal from "../ui/Modal/useModal"
+import { MAIN_TABLE_ID } from "../../redux/config"
+import Modal from "../ui/Modal/Modal"
+import { MODE_EDIT, MODE_ADD } from "../AddDataForm/useManageData"
 
 export const MainContent = () => {
     const { isOpen, closeModal } = useModal();
