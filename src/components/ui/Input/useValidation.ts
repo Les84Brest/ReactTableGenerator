@@ -1,16 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import { Validation } from "./types";
 
 
-export default function useValidation(value, validations) {
+export default function useValidation(
+    value: string ,
+    validations: Validation) {
 
     // if validation rule value return true it means check falls
 
-    const [isEmpty, setIsEmpty] = useState(false);
-    const [minWidthError, setMinWidthError] = useState(false);
-    const [lessThan, setLessThan] = useState(false);
-    const [moreThan, setMoreThan] = useState(false);
+    const [isEmpty, setIsEmpty] = useState<boolean>(false);
+    const [minWidthError, setMinWidthError] = useState<boolean>(false);
+    const [lessThan, setLessThan] = useState<boolean>(false);
+    const [moreThan, setMoreThan] = useState<boolean>(false);
 
-    const errorMsgArr = useRef([])
+    const errorMsgArr = useRef<Array<string>>([])
 
     useEffect(() => {
         errorMsgArr.current = []
@@ -29,7 +32,7 @@ export default function useValidation(value, validations) {
 
                     break
                 case 'minWidth':
-                    if (value.length < validations[validation]) {
+                    if ((value as string).length < parseInt(validations[validation])) {
                         errorMsgArr.current.push(`Length > ${validations[validation]}`)
                         setMinWidthError(true)
 
@@ -38,7 +41,7 @@ export default function useValidation(value, validations) {
                     setMinWidthError(false)
                     break
                 case 'minValue':
-                    if (value && parseInt(value) < validations[validation]) {
+                    if (value && parseInt(value as string) < parseInt(validations[validation])) {
                         setLessThan(true)
                         errorMsgArr.current.push(`Age > ${validations[validation]}`)
                         break
@@ -46,7 +49,7 @@ export default function useValidation(value, validations) {
                     setLessThan(false)
                     break
                 case 'maxValue':
-                    if (value && parseInt(value) > validations[validation]) {
+                    if (value && parseInt(value) > parseInt(validations[validation])) {
                         setMoreThan(true)
                         errorMsgArr.current.push(`Age < ${validations[validation]}`)
                         break
@@ -57,7 +60,7 @@ export default function useValidation(value, validations) {
                     break;
             }
         }
-    }, [value])
+    }, [value, validations])
 
     const errorMessageText = errorMsgArr.current.join('. ')
 
