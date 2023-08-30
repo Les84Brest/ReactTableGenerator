@@ -1,13 +1,18 @@
+import { KeyboardEvent } from 'react';
+import { InputValidationCb } from '../Select/types';
+
 export type Validation = {
-    [index: string]: string
+    [idx: string]: number | boolean
 }
 
 export interface InputProps {
     id: string,
     className?: string,
     validations: Validation,
-    validationStatus: (isValid: boolean) => {},
+    validationStatus: InputValidationCb,
     value: string,
-    onChange: () => {},
+    onChange: (e: KeyboardEvent) => void,
     resetInput: boolean,
+    type: string,
+    placeholder: string
 }
