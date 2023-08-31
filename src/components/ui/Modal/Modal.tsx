@@ -1,9 +1,14 @@
-import React, {useEffect} from "react";
+import { useEffect, FC, ReactElement, } from "react";
 import { createPortal } from "react-dom";
-import PropTypes from 'prop-types'
 
-const Modal = ({ isActive, modalClose, children }) => {
-    const bodyNode = document.body;
+interface ModalProps {
+    isActive: boolean,
+    modalClose: () => void,
+    children: ReactElement
+}
+
+const Modal: FC<ModalProps> = ({ isActive, modalClose, children }) => {
+    const bodyNode: HTMLElement = document.body;
 
     useEffect(() => {
         if (isActive) {
@@ -15,11 +20,11 @@ const Modal = ({ isActive, modalClose, children }) => {
 
     }, [isActive])
 
-    const handlePopupClick = (e) => {
+    const handlePopupClick = (e: React.MouseEvent) => {
         e.stopPropagation()
     }
 
-    const renderModalContent = () => {
+    const renderModalContent = (): ReactElement => {
         return (
             <div className="popup" onClick={modalClose}>
                 <div className="popup__body" onClick={handlePopupClick}>
@@ -34,19 +39,3 @@ const Modal = ({ isActive, modalClose, children }) => {
     ))
 }
 export default Modal;
-
-Modal.propTypes = {
-    isActive: PropTypes.bool,
-    modalClose: PropTypes.func,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-        PropTypes.string,
-    ])
-}
-
-Modal.defaultProps = {
-    modalOpen: () => { },
-    modalClose: () => { },
-    children: ''
-}

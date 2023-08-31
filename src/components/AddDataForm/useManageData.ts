@@ -1,26 +1,25 @@
-import { useDispatch } from "react-redux"
+import { useAppDispatch, useAppSelector } from "../../hook"
 import { addTableRow, updateRow } from '../../redux/slices/tableSlice'
 import { closeModal } from "../../redux/slices/modalSlice"
 import { MAIN_TABLE_ID } from '../../redux/config'
-import { useSelector } from "react-redux"
+import { FormMode } from "./types"
+import { EmployeeData } from '../../redux/slices/tableSlice';
 
-export const MODE_ADD = "MODE_ADD"
-export const MODE_EDIT = "MODE_EDIT"
 
-export default function useManageData(mode) {
+export default function useManageData(mode: FormMode) {
 
-    const dispatcher = useDispatch()
-    const { tables, editRowId, editTableId } = useSelector((state) => state.table);
+    const dispatcher = useAppDispatch()
+    const { tables, editRowId, editTableId } = useAppSelector((state) => state.table);
 
 
     return {
-        saveData(data) {
+        saveData(data: EmployeeData): void {
 
             switch (mode) {
-                case MODE_ADD:
+                case FormMode.MODE_ADD:
                     dispatcher(addTableRow({ tableId: MAIN_TABLE_ID, tableRow: data }))
                     break
-                case MODE_EDIT:
+                case FormMode.MODE_EDIT:
                     dispatcher(updateRow({ tableId: editTableId, rowId: editRowId, tableRow: data }))
                     dispatcher(closeModal())
                     break
@@ -28,9 +27,9 @@ export default function useManageData(mode) {
             }
         },
 
-        getEditRowData() {
+        getEditRowData(): EmployeeData | null {
             if (!editTableId) {
-                return
+                return null
             }
 
             const [row] = tables[editTableId].filter((row) => row.id === editRowId)

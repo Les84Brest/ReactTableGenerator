@@ -1,26 +1,47 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Button } from '../ui/Button/Button';
 import cn from 'classnames'
+import { EmployeeData } from "../../redux/slices/tableSlice";
 
-export const DataTableRow = (props) => {
-    const { isEmpty,
+export enum RowState {
+    'EMPTY_ROW' = 'emptyRow',
+    'FILLED_ROW' = 'filledRow'
+}
+
+type CommonDataTableProps<T> = {
+    onPressDelete?: (rowId: string) => void,
+    onPressEdit?: (rowId: string) => void,
+    rowState: T,
+}
+
+type EmptyDataTableProps = CommonDataTableProps<RowState.EMPTY_ROW> & Partial<EmployeeData>
+
+type FilledDataTableRowProps = CommonDataTableProps<RowState.FILLED_ROW> & EmployeeData
+
+type ComponentProps = EmptyDataTableProps | FilledDataTableRowProps
+
+export const DataTableRow: FC<ComponentProps> = (props) => {
+    const { rowState,
         onPressDelete,
         onPressEdit,
-        id,
-        workerName,
-        surname,
-        age,
-        city } = props
+        id = '',
+        workerName = '',
+        surname = '',
+        age = '',
+        city = '' } = props
 
-    const rowClass = cn('table__row', {'table__row--empty': isEmpty}) 
+    const rowClass = cn('table__row', { 'table__row--empty': rowState === RowState.EMPTY_ROW })
 
     const handleEdit = () => {
-        onPressEdit(id)
+        if (id && onPressEdit) {
+            onPressEdit(id)
+        }
     }
 
     const handleDelete = () => {
-        onPressDelete(id)
+        if (id && onPressDelete) {
+            onPressDelete(id)
+        }
     }
 
     return (
@@ -31,7 +52,7 @@ export const DataTableRow = (props) => {
             <td role="cell" data-cell="City" className="table__cell table__cell--city">{city}</td>
             <td role="cell" className="table__cell table__cell--buttons">
                 {
-                    !isEmpty && (<div className="table__buttons-wrap">
+                    (rowState === RowState.FILLED_ROW) && (<div className="table__buttons-wrap">
 
                         <Button
                             className="btn__edit"
@@ -50,23 +71,3 @@ export const DataTableRow = (props) => {
 }
 export default DataTableRow;
 
-DataTableRow.propTypes = {
-    id: PropTypes.number,
-    isEmpty: PropTypes.bool,
-    workerName: PropTypes.string,
-    surname: PropTypes.string,
-    age: PropTypes.string,
-    city: PropTypes.string,
-    onPressDelete: PropTypes.func,
-    onPressEdit: PropTypes.func
-}
-
-DataTableRow.defaultProps = {
-    isEmpty: false,
-    workerName: '',
-    surname: '',
-    age: '',
-    city: '',
-    onPressDelete: () => { },
-    onPressEdit: () => { },
-}

@@ -1,5 +1,5 @@
-import React from 'react';
-import MainContent from './components/MainContent/';
+import React, {FC} from 'react';
+import MainContent from './components/MainContent';
 
 import './scss/app.scss'
 

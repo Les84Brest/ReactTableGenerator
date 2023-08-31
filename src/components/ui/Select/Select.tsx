@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, FC } from "react"
 import SelectOption from "./SelectOption"
 import ClickOutside from "../ClickOutside/ClickOutside"
-import PropTypes from 'prop-types'
 import cn from 'classnames'
+import { SelectProps, SelectItem } from "./types"
 
-export const Select = ({
-    currentLabel, itemsList, onChoose, className, value, ...attrs
+
+export const Select: FC<SelectProps> = ({
+    currentLabel, itemsList, onChoose, className = '', value, ...attrs
 }) => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [currentName, setCurrentName] = useState('')
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [currentName, setCurrentName] = useState<string>('')
 
     const classes = cn('select', className, { 'selected': value, 'is-active': isOpen })
 
-    const onOptionClick = (value) => {
+    const onOptionClick = (value: SelectItem) => {
         onChoose(value)
     };
 
@@ -24,7 +25,7 @@ export const Select = ({
         }
 
         setCurrentName(currentLabel)
-    }, [value])
+    }, [value, currentLabel])
 
 
 
@@ -40,18 +41,18 @@ export const Select = ({
                     <div className="select__icon"></div>
                 </div>
                 {isOpen && (
-
                     <ul className="select__options">
-                        {itemsList.map((item) => {
-                            return <SelectOption
-                                key={item.id}
-                                value={item}
-                                onClick={onOptionClick}>
-                                {item.name}
-                            </SelectOption>
+                        {itemsList.map((item: SelectItem) => {
+                            return (
+                                <SelectOption
+                                    key={item.id}
+                                    value={item}
+                                    onClick={onOptionClick}>
+                                    {item.name}
+                                </SelectOption>
+                            );
                         })}
                     </ul>
-
                 )
                 }
             </div>
@@ -60,18 +61,3 @@ export const Select = ({
 }
 
 export default Select
-
-Select.propTypes = {
-    currentLabel: PropTypes.string,
-    itemsList: PropTypes.arrayOf(PropTypes.object),
-    onChoose: PropTypes.func,
-    className: PropTypes.string,
-    value: PropTypes.object
-}
-
-Select.defaultProps = {
-    currentLabel: 'Please select value',
-    itemsList: [],
-    onChoose: () => { },
-    className: ''
-}
