@@ -1,4 +1,3 @@
-import { KeyboardEvent } from 'react';
 import { InputValidationCb } from '../Select/types';
 
 export type Validation = {
@@ -11,7 +10,7 @@ export interface InputProps {
     validations: Validation,
     validationStatus: InputValidationCb,
     value: string,
-    onChange: (e: KeyboardEvent) => void,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     resetInput: boolean,
     type: string,
     placeholder: string

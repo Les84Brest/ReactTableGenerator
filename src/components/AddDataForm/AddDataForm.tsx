@@ -1,28 +1,29 @@
-import { FC, MouseEvent, KeyboardEvent, useState, useCallback, useEffect } from "react"
+import { FC, KeyboardEvent, useState, useCallback, useEffect } from "react"
 import Input from "../ui/Input/Input"
 import Select from "../ui/Select/Select"
 import Button from "../ui/Button/Button"
 import useManageData from "./useManageData"
 import cn from 'classnames'
 import { InputValidationCb, SelectItem } from "../ui/Select/types"
-import { AddDataFormProps, EmployeeData, FormMode } from './types';
+import { AddDataFormProps, FormMode } from './types';
+import { EmployeeData } from "../../redux/slices/tableSlice"
 
 const CITY_DATA: Array<SelectItem> = [
     {
         id: 1,
-        name: 'Riga'
+        name: 'London'
     },
     {
         id: 2,
-        name: 'Daugavpils'
+        name: 'New York'
     },
     {
         id: 3,
-        name: 'Jūrmala'
+        name: 'Paris'
     },
     {
         id: 4,
-        name: 'Ventspils'
+        name: 'Madrid'
     },
 ]
 
@@ -93,10 +94,6 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
         resetForm()
     }
 
-    const cbHandleInputChange = (e: KeyboardEvent) => {
-        setName((e.target as HTMLInputElement).value)
-    }
-
     return (
         <div className={classes}>
             <Input
@@ -105,7 +102,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
                 type="text"
                 placeholder="Name"
                 value={name}
-                onChange={cbHandleInputChange}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setName(e.target.value)}}
                 validations={{ minWidth: 4, isEmpty: true }}
                 validationStatus={cbSetNameValidStatus}
                 resetInput={resetInput}
@@ -117,7 +114,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
                 type="text"
                 placeholder="Surname"
                 value={surname}
-                onChange={cbHandleInputChange}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setSurname(e.target.value)}}
                 validations={{ minWidth: 4, isEmpty: true }}
                 validationStatus={cbSetSurnameValidStatus}
                 resetInput={resetInput}
@@ -129,7 +126,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
                 type="number"
                 placeholder="Age"
                 value={age}
-                onChange={cbHandleInputChange}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setAge(e.target.value)}}
                 validations={{ isEmpty: true, minValue: 18, maxValue: 60 }}
                 validationStatus={cbSetAgeValidStatus}
                 resetInput={resetInput}

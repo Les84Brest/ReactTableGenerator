@@ -6,5 +6,5 @@ export enum FormMode {
 export interface AddDataFormProps {
     mode: FormMode,
     submitButtonLabel: string,
-    className: string
+    className?: string
 }

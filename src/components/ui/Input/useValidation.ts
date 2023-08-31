@@ -32,16 +32,15 @@ export default function useValidation(
 
                     break
                 case 'minWidth':
-                    if ((value as string).length < parseInt(validations[validation])) {
+                    if ((value as string).length < (validations[validation] as number)) {
                         errorMsgArr.current.push(`Length > ${validations[validation]}`)
                         setMinWidthError(true)
-
                         break
                     }
                     setMinWidthError(false)
                     break
                 case 'minValue':
-                    if (value && parseInt(value as string) < parseInt(validations[validation])) {
+                    if (value && parseInt(value as string) < (validations[validation] as number)) {
                         setLessThan(true)
                         errorMsgArr.current.push(`Age > ${validations[validation]}`)
                         break
@@ -49,7 +48,7 @@ export default function useValidation(
                     setLessThan(false)
                     break
                 case 'maxValue':
-                    if (value && parseInt(value) > parseInt(validations[validation])) {
+                    if (value && parseInt(value) > (validations[validation] as number)) {
                         setMoreThan(true)
                         errorMsgArr.current.push(`Age < ${validations[validation]}`)
                         break

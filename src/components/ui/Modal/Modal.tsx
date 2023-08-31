@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 interface ModalProps {
     isActive: boolean,
-    modalClose: () => {},
+    modalClose: () => void,
     children: ReactElement
 }
 

@@ -1,36 +1,49 @@
-import React, { useCallback, useState } from "react"
-import PropTypes from "prop-types"
+import { FC, useCallback, useState, ReactNode } from "react"
 import DataTableRow from "./DataTableRow"
 import Button from "../ui/Button/Button"
 import { MAIN_TABLE_ID } from "../../redux/config"
 import useTable from "./useTable"
 import Modal from "../ui/Modal/Modal"
+import { EmployeeData } from "../../redux/slices/tableSlice"
+import { RowState } from "./DataTableRow"
+
+interface TableProps {
+    tableId: string,
+    tableData: EmployeeData[]
+}
 
 
-const DataTable = ({ tableId, tableData }) => {
+const DataTable: FC<TableProps> = ({ tableId, tableData }) => {
     const VISIBLE_ROWS = 8;
 
     const { copyTable, deleteTable, deleteRow, startEditRow } = useTable()
-    const [isTableModalOpen, setIsTableModalOpen] = useState(false);
+    const [isTableModalOpen, setIsTableModalOpen] = useState<boolean>(false);
 
-    const cbDeleteRow = useCallback((rowId) => {
+    const cbDeleteRow = useCallback((rowId: string): void => {
         deleteRow(tableId, rowId)
     }, [tableId, deleteRow])
 
-    const cbUpdateRow = useCallback((rowId) => {
+    const cbUpdateRow = useCallback((rowId: string): void => {
         startEditRow(tableId, rowId)
     }, [tableId, startEditRow])
 
-    const renderTableRows = () => {
+    const renderTableRows = (): ReactNode => {
         // return placeholders only in case when we don't have data
         if (!tableData.length) {
-            return Array(VISIBLE_ROWS).fill('').map((_, i) => <DataTableRow key={i} isEmpty />);
+            return Array(VISIBLE_ROWS)
+                .fill('')
+                .map((_, i) => {
+                    return <DataTableRow
+                        key={`${i}`}
+                        rowState={RowState.EMPTY_ROW}
+                    />
+                });
         }
 
         const tableRows = tableData.map((row) => {
             return <DataTableRow
                 key={`${row.id}item`}
-                isEmpty={false}
+                rowState={RowState.FILLED_ROW}
                 onPressDelete={cbDeleteRow}
                 onPressEdit={cbUpdateRow}
                 {...row} />
@@ -84,7 +97,7 @@ const DataTable = ({ tableId, tableData }) => {
                 </div>
             </div>
             {tableId === MAIN_TABLE_ID &&
-                <Modal isActive={isTableModalOpen} modalClose={() => {setIsTableModalOpen(false)}}>
+                <Modal isActive={isTableModalOpen} modalClose={() => { setIsTableModalOpen(false) }}>
                     <div className="table__modal">The main table cannot be deleted</div>
                 </Modal>}
         </>
@@ -93,14 +106,3 @@ const DataTable = ({ tableId, tableData }) => {
 export default DataTable;
 
 
-DataTable.propTypes = {
-    tableId: PropTypes.string,
-    tableData: PropTypes.arrayOf(
-        PropTypes.shape({
-            workerName: PropTypes.string,
-            surname: PropTypes.string,
-            age: PropTypes.string,
-            city: PropTypes.string,
-        })
-    ),
-}
