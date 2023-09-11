@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/http//Les84Brest.github.io/ReactTableGenerator/static/css/main.c63151f5.css",
+    "main.js": "/http//Les84Brest.github.io/ReactTableGenerator/static/js/main.def35bba.js",
+    "static/media/roboto-bold.woff2": "/http//Les84Brest.github.io/ReactTableGenerator/static/media/roboto-bold.156ad11b06ba3e7fa111.woff2",
+    "static/media/roboto-regular.woff2": "/http//Les84Brest.github.io/ReactTableGenerator/static/media/roboto-regular.349d1bc16d80ff208697.woff2",
+    "index.html": "/http//Les84Brest.github.io/ReactTableGenerator/index.html",
+    "static/media/cross.svg": "/http//Les84Brest.github.io/ReactTableGenerator/static/media/cross.2e3309188d52590f29ea.svg",
+    "static/media/arrow-up.svg": "/http//Les84Brest.github.io/ReactTableGenerator/static/media/arrow-up.9d5b5d0a5061e0b110c6.svg",
+    "main.c63151f5.css.map": "/http//Les84Brest.github.io/ReactTableGenerator/static/css/main.c63151f5.css.map",
+    "main.def35bba.js.map": "/http//Les84Brest.github.io/ReactTableGenerator/static/js/main.def35bba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c63151f5.css",
+    "static/js/main.def35bba.js"
+  ]
+}
