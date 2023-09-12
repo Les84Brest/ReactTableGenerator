@@ -1,4 +1,4 @@
-import { FC, KeyboardEvent, useState, useCallback, useEffect } from "react"
+import { FC, useState, useCallback, useEffect } from "react"
 import Input from "../ui/Input/Input"
 import Select from "../ui/Select/Select"
 import Button from "../ui/Button/Button"
@@ -52,7 +52,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
     //reset input validation state
     useEffect(() => {
         resetInput && setResetInput(false)
-    }, [name, surname, age, city])
+    }, [name, surname, age, city, resetInput])
 
     useEffect(() => {
         (isNameValid && isSurnameValid && isAgeValid && city)
@@ -102,7 +102,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
                 type="text"
                 placeholder="Name"
                 value={name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setName(e.target.value)}}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setName(e.target.value) }}
                 validations={{ minWidth: 4, isEmpty: true }}
                 validationStatus={cbSetNameValidStatus}
                 resetInput={resetInput}
@@ -114,7 +114,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
                 type="text"
                 placeholder="Surname"
                 value={surname}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setSurname(e.target.value)}}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setSurname(e.target.value) }}
                 validations={{ minWidth: 4, isEmpty: true }}
                 validationStatus={cbSetSurnameValidStatus}
                 resetInput={resetInput}
@@ -126,7 +126,7 @@ const AddDataForm: FC<AddDataFormProps> = ({ mode, submitButtonLabel, className 
                 type="number"
                 placeholder="Age"
                 value={age}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setAge(e.target.value)}}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setAge(e.target.value) }}
                 validations={{ isEmpty: true, minValue: 18, maxValue: 60 }}
                 validationStatus={cbSetAgeValidStatus}
                 resetInput={resetInput}
