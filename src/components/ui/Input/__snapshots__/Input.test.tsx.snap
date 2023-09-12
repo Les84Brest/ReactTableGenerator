@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input tests conponent renders 1`] = `
+<input
+  class="form-input test classes"
+  name="testId"
+  placeholder="test placeholder"
+  type="text"
+  value="test value"
+/>
+`;
