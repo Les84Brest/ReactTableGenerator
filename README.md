@@ -1,5 +1,8 @@
 # React Table Generator
 
+**Application link**
+[https://les84brest.github.io/ReactTableGenerator/](https://les84brest.github.io/ReactTableGenerator/)
+
 ## Description
 
 This test app is designed to show React interaction techniques.
@@ -13,13 +16,13 @@ Initially table generator has a form for entering data and a table for storing i
 - Edit data in any table
 - Delete any table except the first one.
 
-
 **Technologies**
 
 - React 18.2
 - Redux toolkit
 - TypeScript
 - SASS
+- Jest, React testing library
 
 ## How to run?
 - Clone app repo or download zip archive
