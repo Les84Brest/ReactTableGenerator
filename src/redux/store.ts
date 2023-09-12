@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import tableReducer from './slices/tableSlice'
 import modalReducer from './slices/modalSlice'
-import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
     reducer: {

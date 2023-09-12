@@ -28,7 +28,7 @@ type DeleteRowPayload = {
 type UpdateRowPayload = DeleteRowPayload & { tableRow: EmployeeData }
 
 
-const initialState: TablesState = {
+export const initialState: TablesState = {
     tables: {
         [MAIN_TABLE_ID]: []
     },
