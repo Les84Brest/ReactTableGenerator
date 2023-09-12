@@ -18,7 +18,7 @@ const Modal: FC<ModalProps> = ({ isActive, modalClose, children }) => {
 
         bodyNode.classList.remove('popup--open')
 
-    }, [isActive])
+    }, [isActive, bodyNode.classList])
 
     const handlePopupClick = (e: React.MouseEvent) => {
         e.stopPropagation()
