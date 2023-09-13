@@ -3,6 +3,7 @@
 **Application link**
 [https://les84brest.github.io/ReactTableGenerator/](https://les84brest.github.io/ReactTableGenerator/)
 
+
 ## Description
 
 This test app is designed to show React interaction techniques.
@@ -24,6 +25,8 @@ Initially table generator has a form for entering data and a table for storing i
 - SASS
 - Jest, React testing library
 
+## Preview
+![React table generator preview](https://github.com/Les84Brest/ReactTableGenerator/blob/main/src/accets/img/tablegen_demo.gif)
 ## How to run?
 - Clone app repo or download zip archive
 - Run `npm install` in application folder
